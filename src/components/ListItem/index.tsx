@@ -4,14 +4,16 @@ import * as St from "./Style";
 
 type Props = {
     item: Item,
+    onCheck: (cheked: boolean, item: number) => void
 }
 
-const ListItem = ({ item }: Props) => {
+const ListItem = ({ item, onCheck }: Props) => {
     
     const [isCheked, setIsChecked] = useState(item.done);
 
-    const changeChecked = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const changeChecked = (event: React.ChangeEvent<HTMLInputElement>, item: number) => {
         setIsChecked(event.target.checked);
+        onCheck(event.target.checked, item)
     };
 
     return (
@@ -20,7 +22,7 @@ const ListItem = ({ item }: Props) => {
             id={`${item.id}`} 
             type='checkbox' 
             checked={isCheked} 
-            onChange={(event) => changeChecked(event)}/>
+            onChange={(event) => changeChecked(event, item.id)}/>
             <label htmlFor={`${item.id}`} >{item.name}</label>
         </St.Container>
     );

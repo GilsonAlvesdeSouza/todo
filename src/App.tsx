@@ -12,7 +12,7 @@ const App = () => {
 
   const handleList = () => {
     const newList = list.map((item, index) => (
-      <ListItem key={item.id} item={item} />
+      <ListItem key={item.id} item={item} onCheck={handleDone} />
     ));
     return newList;
   };
@@ -27,11 +27,24 @@ const App = () => {
     setList(newList);
   };
 
+  const handleDone = (cheked: boolean, item: number) => {
+    
+    let newList = list.map(li => {
+      if (li.id === item) {
+        li.done = cheked;
+      }
+      return li;
+    }); 
+
+    setList(newList);
+
+  }
+
   return (
     <St.Container>
       <St.Area>
         <St.Header>Lista de Tarefas</St.Header>
-        <AddArea onEnter={handlleAddTask}/>
+        <AddArea onEnter={handlleAddTask} />
         {handleList()}
       </St.Area>
     </St.Container>
